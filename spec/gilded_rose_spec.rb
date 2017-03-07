@@ -94,16 +94,16 @@ describe GildedRose do
       end
 
       context 'Conjured items' do
-        it 'quality decreases by 2' do
+        it 'quality decreases by 2 while positive sell_in' do
           items = [Item.new("Conjured ...", 10, 30)]
           GildedRose.new(items).update_quality()
           expect(items[0].quality).to eq 28
         end
-        # it 'sell_in never decreases' do
-        #   items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 30)]
-        #   GildedRose.new(items).update_quality()
-        #   expect(items[0].sell_in).to eq 10
-        # end
+        it 'quality decreases by 4 while negative sell_in' do
+          items = [Item.new("Conjured ...", 0, 30)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 26
+        end
       end
 
     end
