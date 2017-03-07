@@ -20,6 +20,29 @@ describe GildedRose do
       GildedRose.new(items).update_quality()
       expect(items[0].sell_in).to eq 9
     end
+
+    it 'can never have a negative sell in value' do
+        items = [Item.new("TestItem", 0, 20)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq -1
+    end
+
+    it 'decreases in quality twice as fast when the sell_in date is negative' do
+      items = [Item.new("TestItem", -1, 4)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 2
+    end
+
+    it 'quality can never be negative' do
+      items = [Item.new("TestItem", -1, 1)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).not_to eq -1
+      expect(items[0].quality).to eq 0
+    end
+
+
+
+
   end
 
 end
